@@ -17,14 +17,35 @@ services:
     envVars:
       - key: SINGLE_USER_MODE
         value: true
-      - key: DB_URL
+      - key: DB_HOST
         fromDatabase:
           name: mastadon-db
-          property: connectionString
+          property: host
+      - key: DB_USER
+        fromDatabase:
+          name: mastadon-db
+          property: user
+      - key: DB_PORT
+        fromDatabase:
+          name: mastadon-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: mastadon-db
+          property: database
+      - key: DB_PASS
+        fromDatabase:
+          name: mastadon-db
+          property: password
       - key: REDIS_HOST
         fromService:
           type: redis
           name: mastadon-redis
           property: host
+      - key: REDIS_PORT
+        fromService:
+          type: redis
+          name: mastadon-redis
+          property: port
       - key: LOCAL_DOMAIN
         sync: false
