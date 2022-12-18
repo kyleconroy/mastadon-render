@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: mastadon-web
+    env: ruby
+    repo: https://github.com/mastodon/mastodon
+    branch: main # optional (defaults to master)
+    envVars:
+      - key: SINGLE_USER_MODE
+        value: true
