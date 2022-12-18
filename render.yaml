@@ -5,7 +5,7 @@ databases:
     postgresMajorVersion: 14
 services:
   - type: redis
-    name: mastado-redis
+    name: mastadon-redis
     ipAllowList: []
   - type: web
     name: mastadon-web
@@ -17,3 +17,14 @@ services:
     envVars:
       - key: SINGLE_USER_MODE
         value: true
+      - key: DB_URL
+        fromDatabase:
+          name: prod
+          property: connectionString
+      - key: REDIS_HOST
+        fromService:
+          type: redis
+          name: mastadon-redis
+          property: host
+      - key: LOCAL_DOMAIN
+        sync: false
