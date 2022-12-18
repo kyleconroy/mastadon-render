@@ -4,6 +4,7 @@ services:
     env: ruby
     repo: https://github.com/mastodon/mastodon
     branch: main # optional (defaults to master)
+    startCommand: bin/heroku-web
     envVars:
       - key: SINGLE_USER_MODE
         value: true
