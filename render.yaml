@@ -1,4 +1,12 @@
+databases:
+  - name: mastadon-db
+    databaseName: mastadon
+    ipAllowList: []
+    postgresMajorVersion: 14
 services:
+  - type: redis
+    name: mastado-redis
+    ipAllowList: []
   - type: web
     name: mastadon-web
     env: ruby
