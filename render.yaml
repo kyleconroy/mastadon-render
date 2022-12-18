@@ -19,7 +19,7 @@ services:
         value: true
       - key: DB_URL
         fromDatabase:
-          name: prod
+          name: mastadon-db
           property: connectionString
       - key: REDIS_HOST
         fromService:
