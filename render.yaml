@@ -12,6 +12,7 @@ services:
     env: ruby
     repo: https://github.com/mastodon/mastodon
     branch: main # optional (defaults to master)
+    buildCommand: "bundle install"
     startCommand: bin/heroku-web
     envVars:
       - key: SINGLE_USER_MODE
