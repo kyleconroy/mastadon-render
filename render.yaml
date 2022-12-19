@@ -30,7 +30,7 @@ services:
     name: mastodon-web
     env: docker
     repo: https://github.com/kyleconroy/mastodon-render.git
-    dockerCommand: "bundle exec rails s -p 3000"
+    dockerCommand: "rails s -p 3000"
     branch: main
     envVars:
       - key: DB_HOST
@@ -68,7 +68,7 @@ services:
     name: mastodon-worker
     env: docker
     repo: https://github.com/kyleconroy/mastodon-render.git
-    dockerCommand: "bundle exec sidekiq"
+    dockerCommand: "sidekiq"
     branch: main
     envVars:
       - key: DB_HOST
