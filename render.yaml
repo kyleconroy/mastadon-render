@@ -3,6 +3,25 @@ databases:
     databaseName: mastodon
     ipAllowList: []
     postgresMajorVersion: 14
+envVarGroups:
+- name: mastodon-settings
+  envVars:
+    - key: LOCAL_DOMAIN
+      sync: false
+    - key: WEB_DOMAIN
+      sync: false
+    # Make sure to use `rake secret` to generate secrets
+    - key: OTP_SECRET
+      sync: false
+    - key: SECRET_KEY_BASE
+      sync: false
+    # Generate with `rake mastodon:webpush:generate_vapid_key`
+    - key: VAPID_PRIVATE_KEY
+      sync: false
+    - key: VAPID_PUBLIC_KEY
+      sync: false
+    - key: SINGLE_USER_MODE
+      value: false
 services:
   - type: redis
     name: mastodon-redis
@@ -11,10 +30,9 @@ services:
     name: mastodon-web
     env: docker
     repo: https://github.com/kyleconroy/mastodon-render.git
+    dockerCommand: "bundle exec rails s -p 3000"
     branch: main
     envVars:
-      - key: SINGLE_USER_MODE
-        value: true
       - key: DB_HOST
         fromDatabase:
           name: mastodon-db
@@ -45,15 +63,42 @@ services:
           type: redis
           name: mastodon-redis
           property: port
-      - key: LOCAL_DOMAIN
-        sync: false
-      # Make sure to use `rake secret` to generate secrets
-      - key: OTP_SECRET
-        sync: false
-      - key: SECRET_KEY_BASE
-        sync: false
-      # Generate with `rake mastodon:webpush:generate_vapid_key`
-      - key: VAPID_PRIVATE_KEY
-        sync: false
-      - key: VAPID_PUBLIC_KEY
-        sync: false
+      - fromGroup: mastodon-settings
+  - type: worker
+    name: mastodon-worker
+    env: docker
+    repo: https://github.com/kyleconroy/mastodon-render.git
+    dockerCommand: "bundle exec sidekiq"
+    branch: main
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: mastodon-db
+          property: host
+      - key: DB_USER
+        fromDatabase:
+          name: mastodon-db
+          property: user
+      - key: DB_PORT
+        fromDatabase:
+          name: mastodon-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: mastodon-db
+          property: database
+      - key: DB_PASS
+        fromDatabase:
+          name: mastodon-db
+          property: password
+      - key: REDIS_HOST
+        fromService:
+          type: redis
+          name: mastodon-redis
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          type: redis
+          name: mastodon-redis
+          property: port
+      - fromGroup: mastodon-settings
