@@ -22,6 +22,16 @@ envVarGroups:
       sync: false
     - key: SINGLE_USER_MODE
       value: false
+    - key: SMTP_SERVER
+      sync: false
+    - key: SMTP_PORT
+      sync: false
+    - key: SMTP_LOGIN
+      sync: false
+    - key: SMTP_PASSWORD
+      sync: false
+    - key: SMTP_FROM_ADDRESS
+      sync: false
 services:
   - type: redis
     name: mastodon-redis
@@ -68,7 +78,7 @@ services:
     name: mastodon-worker
     env: docker
     repo: https://github.com/kyleconroy/mastodon-render.git
-    dockerCommand: "sidekiq"
+    dockerCommand: "echo 'hello'"
     branch: main
     envVars:
       - key: DB_HOST
