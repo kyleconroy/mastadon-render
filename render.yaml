@@ -32,6 +32,8 @@ envVarGroups:
       sync: false
     - key: SMTP_FROM_ADDRESS
       sync: false
+    - key: RAILS_ENV
+      value: "PRODUCTION"
 services:
   - type: redis
     name: mastodon-redis
@@ -40,7 +42,8 @@ services:
     name: mastodon-web
     env: docker
     repo: https://github.com/kyleconroy/mastodon-render.git
-    dockerCommand: "rails s -p 3000"
+    dockerCommand: "rake mastodon:setup"
+    # dockerCommand: "rails s -p 3000"
     branch: main
     envVars:
       - key: DB_HOST
@@ -78,7 +81,7 @@ services:
     name: mastodon-worker
     env: docker
     repo: https://github.com/kyleconroy/mastodon-render.git
-    dockerCommand: "echo 'hello'"
+    dockerCommand: "sidekiq"
     branch: main
     envVars:
       - key: DB_HOST
