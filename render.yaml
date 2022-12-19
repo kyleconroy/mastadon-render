@@ -11,7 +11,6 @@ services:
     name: mastadon-web
     env: docker
     branch: main
-    startCommand: "bundle exec rails s -p 3000"
     envVars:
       - key: SINGLE_USER_MODE
         value: true
