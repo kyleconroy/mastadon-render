@@ -47,3 +47,7 @@ services:
           property: port
       - key: LOCAL_DOMAIN
         sync: false
+      - key: OTP_SECRET
+        generateValue: true
+      - key: SECRET_KEY_BASE
+        generateValue: true
