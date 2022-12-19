@@ -9,11 +9,9 @@ services:
     ipAllowList: []
   - type: web
     name: mastadon-web
-    env: ruby
-    repo: https://github.com/mastodon/mastodon
-    branch: main # optional (defaults to master)
-    buildCommand: "bundle install --deployment --without 'development test'"
-    startCommand: bin/heroku-web
+    env: docker
+    branch: main
+    startCommand: "bundle exec rails s -p 3000"
     envVars:
       - key: SINGLE_USER_MODE
         value: true
