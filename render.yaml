@@ -47,7 +47,13 @@ services:
           property: port
       - key: LOCAL_DOMAIN
         sync: false
+      # Make sure to use `rake secret` to generate secrets
       - key: OTP_SECRET
-        generateValue: true
+        sync: false
       - key: SECRET_KEY_BASE
-        generateValue: true
+        sync: false
+      # Generate with `rake mastodon:webpush:generate_vapid_key`
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_PUBLIC_KEY
+        sync: false
