@@ -81,7 +81,7 @@ services:
     name: mastodon-worker
     env: docker
     repo: https://github.com/kyleconroy/mastodon-render.git
-    dockerCommand: "sidekiq"
+    dockerCommand: "bundle exec sidekiq"
     branch: main
     envVars:
       - key: DB_HOST
