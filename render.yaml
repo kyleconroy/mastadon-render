@@ -38,7 +38,6 @@ services:
   - type: redis
     name: mastodon-redis
     ipAllowList: []
-    plan: free
   - type: web
     name: mastodon-web
     env: docker
