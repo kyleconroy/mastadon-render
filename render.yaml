@@ -10,6 +10,7 @@ services:
   - type: web
     name: mastadon-web
     env: docker
+    repo: https://github.com/kyleconroy/mastadon-render.git
     branch: main
     envVars:
       - key: SINGLE_USER_MODE
